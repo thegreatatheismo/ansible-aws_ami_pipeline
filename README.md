@@ -1,31 +1,49 @@
-Role Name
+aws-custom_ami_pipeline
 =========
 
-A brief description of the role goes here.
+An Ansible role to create a custom, hardened, ami from the RHEL8 marketplace image.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- AWS Account with key-pair
+- AWS Dynamic Inventory
+- SCAP Work Bench (if customising the hardening playbook)
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+access_key_tower - Tower environment variable for AWS credentials.
+secret_key_tower - Tower environment variable for AWS credentials.
+security_token_tower - Tower environment variable for AWS credentials.
+access_key - AWS credentials (store these in a vault).
+secret_key - AWS credentials (store these in a vault).
+security_token - AWS credentials (store these in a vault).
+ami_id - RHEL8 Marketplace AMI ID.
+region - AWS region.
+sec_group - AWS security group to add instance to.
+subnet_id - AWS subnet to deploy instance in.
+instance_type - Instance flavour.
+key - Name of pre-existing AWS key-pair to use.
+id - Version number for idempotence.
+tag - Tag for instance - required for finding instance_id in several plays.
+ami_name - Name of the AMI. Make this meaningful.
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+- AWS Dynamic Inventory
+- 
 
 Example Playbook
 ----------------
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-    - hosts: servers
+    - hosts: ec2
       roles:
-         - { role: username.rolename, x: 42 }
+         - aws-custom_ami_pipeline
 
 License
 -------
@@ -35,4 +53,5 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Stephen Leahy
+sleahy@redhat.com
