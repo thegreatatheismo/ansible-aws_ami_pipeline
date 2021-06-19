@@ -13,6 +13,8 @@
 
 - include_tasks: base_patch_software.yml
 
+- include_tasks: base_hardening.yml
+
 - include_tasks: base_soe_finalise.yml
 
 - include_tasks: aws_create_ec2_snapshot.yml

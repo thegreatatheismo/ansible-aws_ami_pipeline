@@ -2,9 +2,12 @@
 # vars file for aws-custom_ami_pipeline
 
 aws:
-  access_key: '{{ lookup("env", "AWS_ACCESS_KEY") }}'
-  secret_key: '{{ lookup("env", "AWS_SECURITY_KEY") }}'
-  security_token: '{{ lookup("env", "AWS_SECURITY_TOKEN") }}'
+  access_key_tower: '{{ lookup("env", "AWS_ACCESS_KEY") }}'
+  secret_key_tower: '{{ lookup("env", "AWS_SECURITY_KEY") }}'
+  security_token_tower: '{{ lookup("env", "AWS_SECURITY_TOKEN") }}'
+  access_key: ACCESSKEY
+  secret_key: SECRETKEY
+  security_token: SECURITYTOKEN
   ami_id: ami-0810abbfb78d37cdf
   region: ap-southeast-2
   sec_group: sg-0c5897546d56f2c31
