@@ -1,0 +1,31 @@
+---
+- name: Create an AMI from an EC2 Instance
+  hosts: localhost
+  connection: local
+  become: False
+  gather_facts: False
+  
+  tasks:
+    - name: Get Instance ID
+      ec2_instance_info:
+        aws_access_key: "{{ aws.access_key }}"
+        aws_secret_key: "{{ aws.secret_key }}"
+        region: "{{ aws.region }}"
+        filters:
+          "tag:Name": "SOE_RHEL8SOE" 
+          instance-state-name: [ "running"]
+      register: ec2_info
+
+    - name: Validate Instance ID
+      debug: 
+        var: ec2_info.instances[0].instance_id
+    
+    - name: Basic AMI Creation
+      ec2_ami:
+        instance_id: "{{ ec2_info.instances[0].instance_id }}"
+        wait: yes
+        name: "{{ aws.ami_name }}"
+        region: "{{ aws.region }}"
+        aws_access_key: "{{ aws.access_key }}"
+        aws_secret_key: "{{ aws.secret_key }}"
+      when: aws.ami_id is not defined

@@ -1,0 +1,24 @@
+---
+- name: Firewall Configuration 
+  hosts: tag_Name_SOE_RHEL8
+
+  tasks:
+
+  - name: Install firewalld
+    yum:
+      state: present
+      name: firewalld
+
+  - name: Enable firewalld
+    service:
+      name: firewalld
+      state: started
+      enabled: True
+
+  - name: Add SSH Port to Internal Zone 
+    firewalld: 
+      zone: internal 
+      service: ssh 
+      state: enabled 
+      immediate: True 
+      permanent: True 

@@ -1,0 +1,34 @@
+---
+- name: Deploy EC2 Instance From Marketplace AMI 
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  become: False
+
+  tasks:
+      
+  - name: Provision Instance
+    ec2:
+      aws_access_key: "{{ aws.access_key }}"
+      aws_secret_key: "{{ aws.secret_key }}"
+      id: "{{ aws.id }}"
+      image: "{{ aws.ami_id }}"
+      instance_tags: "{{ aws.tag }}"
+      vpc_subnet_id: "{{ aws.subnet_id }}" 
+      key_name: "{{ aws.key }}"
+      instance_type: "{{ aws.instance_type }}"
+      region: "{{ aws.region }}"
+      wait: true
+      count: 1
+
+  - name: Wait for EC2 to Update
+    pause:
+      minutes: 2
+
+
+
+
+
+
+    
+      

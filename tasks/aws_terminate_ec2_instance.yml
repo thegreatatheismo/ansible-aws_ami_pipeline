@@ -1,0 +1,29 @@
+---
+- name: Stop EC2 Instance
+  hosts: localhost
+  connection: local
+
+  tasks:
+    
+  - name: Get Instance ID
+    ec2_instance_info:
+      aws_access_key: "{{ aws.access_key }}"
+      aws_secret_key: "{{ aws.secret_key }}"
+      region: "{{ aws.region }}"
+      filters:
+        "tag:Name": "SOE_RHEL8SOE"
+    register: ec2_info
+
+  - name: Validate Instance ID
+    debug: 
+      var: ec2_info.instances[0].instance_id
+
+  - name: Stop EC2 Instance
+    ec2:
+      aws_access_key: "{{ aws.access_key }}"
+      aws_secret_key: "{{ aws.secret_key }}"
+      instance_ids: "{{ ec2_info.instances[0].instance_id }}"
+      state: absent
+      region: "{{ aws.region }}"
+      wait: yes
+  

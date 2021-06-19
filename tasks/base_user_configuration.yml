@@ -1,0 +1,25 @@
+---
+- name: User Configuration 
+  hosts: tag_Name_SOE_RHEL8
+
+  tasks:
+
+  - name: Create User ongadmin
+    user:
+      name: user1
+      shell: /bin/bash
+      state: present
+      password: "{{ 'password_hash_here' | password_hash( 'sha512')
+      }}"
+      
+  - name: Create User atoadmin
+    user:
+      name: user2
+      shell: /bin/bash
+      state: present
+      password: "{{ 'password_hash_here' | password_hash( 'sha512') }}"
+      
+
+
+
+      

@@ -1,0 +1,28 @@
+---
+- name: Configure Services 
+  hosts: tag_Name_SOE_RHEL8
+
+  tasks: 
+
+  - name: Install required packages for realm join
+    yum:
+      name:
+        - sssd
+        - realmd 
+        - oddjob 
+        - oddjob-mkhomedir
+        - adcli
+        - samba-common
+        - samba-common-tools
+        - krb5-workstation
+        - openldap-clients 
+        - wget
+        - vim
+        - policycoreutils-python-utils
+      state: present
+
+  - name: Start and Enable sshd 
+    service:
+      name: sshd 
+      state: started 
+      enabled: True 

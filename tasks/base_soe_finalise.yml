@@ -1,0 +1,9 @@
+---
+- name: User Configuration 
+  hosts: tag_Name_SOE_RHEL8
+  become: True
+
+  tasks:
+
+  - name: Unsubscribe from Red Hat Satellite
+    command: subscription-manager unregister

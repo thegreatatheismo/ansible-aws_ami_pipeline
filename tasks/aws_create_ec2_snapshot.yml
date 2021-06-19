@@ -1,0 +1,28 @@
+---
+- name: Create EC2 Snapshot From Existing EBS Volume
+  hosts: localhost
+  connection: local
+  become: False
+  
+  tasks:
+
+  - name: Get Instance ID
+    ec2_instance_info:
+      aws_access_key: "{{ aws.access_key }}"
+      aws_secret_key: "{{ aws.secret_key }}"
+      region: "{{ aws.region }}"
+      filters:
+        "tag:Name": "SOE_RHEL8SOE" 
+        instance-state-name: [ "running"]
+    register: ec2_info
+
+  - name: Validate Instance ID
+    debug: 
+      var: ec2_info.instances[0].instance_id
+
+  - name: Simple Snapshot Of Volume Using volume_id 
+    ec2_snapshot:
+      region: "{{ aws.region }}"
+      instance_id: "{{ ec2_info.instances[0].instance_id }}"
+      device_name: /dev/sda1
+      description: snapshot of </data> taken from <database> taken <date>

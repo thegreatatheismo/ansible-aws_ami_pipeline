@@ -1,0 +1,25 @@
+---
+# tasks file for aws-custom_ami_pipeline
+
+- include_tasks: aws_deploy_ec2_from_marketplace_ami.yml
+
+- include_tasks: base_firewall_config.yml
+
+- include_tasks: base_enable_services.yml
+
+- include_tasks: base_configure_ssh_banner.yml
+
+- include_tasks: base_user_configuration.yml
+
+- include_tasks: base_patch_software.yml
+
+- include_tasks: base_soe_finalise.yml
+
+- include_tasks: aws_create_ec2_snapshot.yml
+
+- include_tasks: aws_create_ami_from_ec2_instance.yml
+
+- include_tasks: aws_gather_ami_metadata.yml
+
+- include_tasks: aws_terminate_ec2_instance.yml
+

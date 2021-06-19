@@ -1,0 +1,23 @@
+---
+- name: Patch Software
+  hosts: tag_Name_SOE_RHEL8
+  become: True
+  
+  tasks:
+  
+  - name: Remove Amazon RHUI Client
+    command: yum -y remove rh-amazon-rhui-client*
+    
+  - name: Clean up Repos
+    command: rm -rf /etc/yum.repos.d/*
+
+  - name: Install Katello-CA 
+    command: yum -y localinstall http://satellite.exxample.com/pub/katello-ca-consumer-latest.noarch.rpm
+
+  - name: Subscribe to Satellite
+    command: subscription-manager register --org=My_Organisation --activationkey="ak_aws"
+
+  - name: Perform Full Patching 
+    yum:
+      name: '*'
+      state: latest

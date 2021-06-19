@@ -1,0 +1,24 @@
+---
+- name: Configure SSH Banner 
+  hosts: tag_Name_SOE_RHEL8
+  become: True
+
+  tasks: 
+
+  - name: Set an SSH Login Banner 
+    copy: 
+      dest: /etc/banner
+      src: ./files/banner
+      owner: root 
+      group: root 
+      mode: 0644 
+
+  - name: Updated SSH Config 
+    lineinfile:
+      path: /etc/ssh/sshd_config
+      line: Banner /etc/banner
+
+  - name: Restart SSHD
+    service:
+      name: sshd
+      state: restarted
