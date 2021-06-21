@@ -24,7 +24,7 @@
       ec2_ami:
         instance_id: "{{ ec2_info.instances[0].instance_id }}"
         wait: yes
-        name: "{{ aws.ami_name }}"
+        name: "{{ aws.ami_prefix + '-' + aws.ami_suffix }}"
         region: "{{ aws.region }}"
         aws_access_key: "{{ aws.access_key }}"
         aws_secret_key: "{{ aws.secret_key }}"

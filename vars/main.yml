@@ -16,4 +16,5 @@ aws:
   key: svc_soe_ansible
   id: rhel8soe_v5
   tag: '{"Name":"SOE_RHEL8"}'
-  ami_name: aws-rhel8-soe_v2
+  ami_prefix: aws-rhel8-soe
+  ami_suffix: '{{ lookup("pipe","date +%s") }}'
