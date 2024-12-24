@@ -26,4 +26,3 @@
       state: absent
       region: "{{ aws.region }}"
       wait: yes
-  
